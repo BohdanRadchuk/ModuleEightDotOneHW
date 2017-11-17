@@ -1,9 +1,9 @@
+import operations.CalculatorOperations;
+
 import java.util.Scanner;
 import java.util.concurrent.*;
 
 public class Main {
-
-
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("enter two numbers");
@@ -12,8 +12,8 @@ public class Main {
         System.out.println("what operation do you want to do with your numbers?");
         scanner.nextLine();
         String operation = scanner.nextLine();
-        ExecutorService threadPool = Executors.newFixedThreadPool(2);
-        Future<Number> future = new FutureTask<Number>(calculateInteger(A, B, operation));
+        ExecutorService threadPool = Executors.newFixedThreadPool(1);
+        Future<Object> future = new FutureTask<Object>(calculateInteger(A, B, operation));
         if (operation.equals("+") || operation.equals("-") || operation.equals("%") || operation.equals("*") || operation.equals("/"))
             future= threadPool.submit(calculateInteger(A, B, operation));
         if (operation.equals("==") || operation.equals("<") || operation.equals(">"))
@@ -23,7 +23,7 @@ public class Main {
     }
 
     public static Callable calculateInteger(int A, int B, String operation){
-        Operations operations = new Operations();
+        CalculatorOperations calculatorOperations = new CalculatorOperations();
         Callable<Number> callable = new Callable<Number>() {
             @Override
             public Integer call() throws Exception {
@@ -31,15 +31,15 @@ public class Main {
             }
         };
         if (operation.equals("+"))
-            callable = () -> operations.plus(A, B);
+            callable = () -> calculatorOperations.plus(A, B);
         if (operation.equals("-"))
-            callable = () -> operations.odds(A, B);
+            callable = () -> calculatorOperations.odds(A, B);
         if (operation.equals("*"))
-            callable = () -> operations.multiplication(A, B);
+            callable = () -> calculatorOperations.multiplication(A, B);
         if (operation.equals("%"))
-            callable = () -> operations.splitModulo(A, B);
+            callable = () -> calculatorOperations.splitModulo(A, B);
         if (operation.equals("/"))
-            callable = () -> operations.devide(A, B);
+            callable = () -> calculatorOperations.devide(A, B);
 
         return callable;
     }
@@ -52,13 +52,13 @@ public class Main {
                 return null;
             }
         };
-        Operations operations = new Operations();
+        CalculatorOperations calculatorOperations = new CalculatorOperations();
         if (operation.equals("=="))
-            callable = () -> operations.equals(A, B);
+            callable = () -> calculatorOperations.equals(A, B);
         if (operation.equals(">"))
-            callable = () -> operations.bigger(A, B);
+            callable = () -> calculatorOperations.bigger(A, B);
         if (operation.equals("<"))
-            callable = () -> operations.less(A, B);
+            callable = () -> calculatorOperations.less(A, B);
 
         return callable;
     }
