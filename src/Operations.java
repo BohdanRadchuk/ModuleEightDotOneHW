@@ -9,7 +9,9 @@ public class Operations {
         return A*B;
     }
     public Double devide(int A, int B){
-        return (double)(A/B);
+
+
+        return (double)A/(double)B;
     }
     public Integer splitModulo(int A, int B){
         return A%B;

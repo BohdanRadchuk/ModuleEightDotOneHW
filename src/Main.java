@@ -1,7 +1,9 @@
 import java.util.Scanner;
 import java.util.concurrent.*;
 
-public class Main<T> {
+public class Main {
+
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("enter two numbers");
@@ -11,39 +13,53 @@ public class Main<T> {
         scanner.nextLine();
         String operation = scanner.nextLine();
         ExecutorService threadPool = Executors.newFixedThreadPool(2);
-        if (operation == "+" || operation == "-" || operation == "%" )
-            T = Integer;
-        Future<Integer> future; = threadPool.submit(calculate(A, B, operation));
+        Future<Number> future = new FutureTask<Number>(calculateInteger(A, B, operation));
+        if (operation.equals("+") || operation.equals("-") || operation.equals("%") || operation.equals("*") || operation.equals("/"))
+            future= threadPool.submit(calculateInteger(A, B, operation));
+        if (operation.equals("==") || operation.equals("<") || operation.equals(">"))
+            future= threadPool.submit(calculateBoolean(A, B, operation));
         System.out.println(future.get());
         threadPool.shutdown();
-
     }
-    public static Callable calculate(int A, int B, String operation){
-        Callable<String> callable = new Callable<String>() {
+
+    public static Callable calculateInteger(int A, int B, String operation){
+        Operations operations = new Operations();
+        Callable<Number> callable = new Callable<Number>() {
             @Override
-            public String call() throws Exception {
-                return "You have entered unsupportable operation";
+            public Integer call() throws Exception {
+                return null;
             }
         };
-        Operations operations = new Operations();
         if (operation.equals("+"))
             callable = () -> operations.plus(A, B);
         if (operation.equals("-"))
             callable = () -> operations.odds(A, B);
         if (operation.equals("*"))
-            System.out.println(operations.multiplication(A, B));
-        if (operation.equals("/"))
-            callable = () -> operations.devide(A, B);
+            callable = () -> operations.multiplication(A, B);
         if (operation.equals("%"))
             callable = () -> operations.splitModulo(A, B);
+        if (operation.equals("/"))
+            callable = () -> operations.devide(A, B);
+
+        return callable;
+    }
+
+
+    public static Callable calculateBoolean(int A, int B, String operation) {
+        Callable<Boolean> callable = new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return null;
+            }
+        };
+        Operations operations = new Operations();
         if (operation.equals("=="))
             callable = () -> operations.equals(A, B);
         if (operation.equals(">"))
             callable = () -> operations.bigger(A, B);
         if (operation.equals("<"))
-            callable = () ->  operations.less(A, B);
+            callable = () -> operations.less(A, B);
 
         return callable;
     }
-
 }
