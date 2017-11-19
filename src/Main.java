@@ -24,12 +24,7 @@ public class Main {
 
     public static Callable calculateInteger(int A, int B, String operation){
         CalculatorOperations calculatorOperations = new CalculatorOperations();
-        Callable<Number> callable = new Callable<Number>() {
-            @Override
-            public Integer call() throws Exception {
-                return null;
-            }
-        };
+        Callable<Number> callable = () -> null;
         if (operation.equals("+"))
             callable = () -> calculatorOperations.plus(A, B);
         if (operation.equals("-"))
@@ -46,12 +41,7 @@ public class Main {
 
 
     public static Callable calculateBoolean(int A, int B, String operation) {
-        Callable<Boolean> callable = new Callable<Boolean>() {
-            @Override
-            public Boolean call() throws Exception {
-                return null;
-            }
-        };
+        Callable<Boolean> callable = () -> null;
         CalculatorOperations calculatorOperations = new CalculatorOperations();
         if (operation.equals("=="))
             callable = () -> calculatorOperations.equals(A, B);
