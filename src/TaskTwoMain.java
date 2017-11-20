@@ -54,6 +54,7 @@ public class TaskTwoMain {
         sumDouble = 0;
         for (int i = 0; i<processors; i++){
             final int count = i;
+            FutureTask <>
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -68,7 +69,7 @@ public class TaskTwoMain {
             };
         Thread thread = new Thread(runnable);
         System.out.println(thread.getName());
-
+        thread.join(100);
         thread.start();
 
 
