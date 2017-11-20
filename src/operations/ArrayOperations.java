@@ -9,7 +9,7 @@ public class ArrayOperations {
             intarray[i] = i+1;
         }
     }
-    public double calculateResult (int begin, int end){
+    public Double calculateResult (int begin, int end){
         double result = 0;
         for (int i = begin; i < end; i++)
             result += Math.sin(intarray[i]) + Math.cos(intarray[i]);
