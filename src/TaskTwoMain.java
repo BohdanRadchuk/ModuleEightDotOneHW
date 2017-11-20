@@ -54,12 +54,12 @@ public class TaskTwoMain {
         sumDouble = 0;
         for (int i = 0; i<processors; i++){
             final int count = i;
-            FutureTask <>
+            double tempFuture=0;
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
                    // Thread.currentThread().wait(1000);
-                    sumDouble += arrayOps.calculateResult(count*(ARRAY_SIZE/processors),(count+1)*ARRAY_SIZE/processors);
+                     double tempF = arrayOps.calculateResult(count*(ARRAY_SIZE/processors),(count+1)*ARRAY_SIZE/processors);
                     summ.set(summ.get() + arrayOps.calculateResult(count*(ARRAY_SIZE/processors),(count+1)*ARRAY_SIZE/processors));
                     System.out.println(sumDouble);
                     //sumDouble+=arrayOps.calculateResult(0,80000);
@@ -67,11 +67,13 @@ public class TaskTwoMain {
                     System.out.println(summ.get() + "atomic");
                 */}
             };
-        Thread thread = new Thread(runnable);
-        System.out.println(thread.getName());
-        thread.join(100);
-        thread.start();
 
+            FutureTask <Double> futureTask = new FutureTask<Double>(runnable, tempFuture);
+            Thread thread = new Thread(runnable);
+        System.out.println(thread.getName());
+
+        thread.start();
+        sumDouble +=futureTask.get();
 
         }
 
