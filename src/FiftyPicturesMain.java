@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
@@ -75,13 +76,14 @@ public class FiftyPicturesMain extends Application {
         pool.shutdown();
     }
 
-    public void pressButton(Pane root){
+    public void pressButton(Pane root) {
         Button button = new Button("Обновить");
         button.setTranslateX(510);
         button.setOnAction(event -> {
             root.getChildren().clear();
             root.getChildren().addAll(button);
-            showPictures(root);});
+            showPictures(root);
+        });
         root.getChildren().addAll(button);
     }
 
@@ -94,6 +96,5 @@ public class FiftyPicturesMain extends Application {
         primaryStage.setHeight(600);
         primaryStage.show();
         pressButton(root);
-
     }
 }

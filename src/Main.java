@@ -15,14 +15,14 @@ public class Main {
         ExecutorService threadPool = Executors.newFixedThreadPool(1);
         Future<Object> future = new FutureTask<Object>(calculateInteger(A, B, operation));
         if (operation.equals("+") || operation.equals("-") || operation.equals("%") || operation.equals("*") || operation.equals("/"))
-            future= threadPool.submit(calculateInteger(A, B, operation));
+            future = threadPool.submit(calculateInteger(A, B, operation));
         if (operation.equals("==") || operation.equals("<") || operation.equals(">"))
-            future= threadPool.submit(calculateBoolean(A, B, operation));
+            future = threadPool.submit(calculateBoolean(A, B, operation));
         System.out.println(future.get());
         threadPool.shutdown();
     }
 
-    public static Callable calculateInteger(int A, int B, String operation){
+    public static Callable calculateInteger(int A, int B, String operation) {
         CalculatorOperations calculatorOperations = new CalculatorOperations();
         Callable<Number> callable = () -> null;
         if (operation.equals("+"))
@@ -35,7 +35,6 @@ public class Main {
             callable = () -> calculatorOperations.splitModulo(A, B);
         if (operation.equals("/"))
             callable = () -> calculatorOperations.devide(A, B);
-
         return callable;
     }
 
@@ -49,7 +48,6 @@ public class Main {
             callable = () -> calculatorOperations.bigger(A, B);
         if (operation.equals("<"))
             callable = () -> calculatorOperations.less(A, B);
-
         return callable;
     }
 }

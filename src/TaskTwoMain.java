@@ -15,11 +15,9 @@ public class TaskTwoMain {
         Scanner scanner = new Scanner(System.in);
         System.out.println("How many repeats do you want to do?");
         int totalRepeats = scanner.nextInt();
-
         arrayOps.intArrayCreation(ARRAY_SIZE);
         final int processors = Runtime.getRuntime().availableProcessors();
         System.out.println("amount of processors = " + processors);
-
 
         long timer = System.currentTimeMillis();
         System.out.println("Time at start of pool work = " + timer);
@@ -35,7 +33,6 @@ public class TaskTwoMain {
                 FutureTask<Double> futureTask = new FutureTask<>(doubleCallable);
                 threadPool.submit(futureTask);
                 summ.set(summ.get() + futureTask.get());
-
             }
             System.out.println("Total AtomicSumm = " + summ + " from thread pool");
             repeats--;
@@ -44,7 +41,6 @@ public class TaskTwoMain {
         timer -= System.currentTimeMillis();
         System.out.println("pool was working for " + (-1) * timer + "ms");
         threadPool.shutdown();
-
 
         semaphorePoolvsThread.acquire();
         Semaphore threadSemaphore = new Semaphore(processors);
