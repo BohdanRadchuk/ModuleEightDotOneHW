@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 
 public class FiftyPicturesMain extends Application {
 
-    public static final String LOAD_FROM = "files/links.txt";
+    public static final String LOAD_FROM = "files/links.txt";               // есть файл links1.txt - там ссылки на большие картинки, но оно долго думает.
     private ArrayList<URL> urls = new ArrayList<>(50);
 
     public static void main(String[] args) {
